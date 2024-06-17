@@ -1,5 +1,6 @@
 
 import axios from 'axios'
+import './App.css'
 import React, { useEffect, useState } from 'react'
 
 const App = () => {
@@ -68,9 +69,28 @@ const App = () => {
     setEditingId(item.id)
   }
   return (
-    <div>
-      <div>
-        <h2>add new data</h2>
+    <div  className='container'>
+      <h1>myteam sc</h1>
+      <div className='data-container'>
+        <fieldset>
+          <legend>
+          <h2>team data</h2>
+          </legend>
+          <ul>
+            {items.map((item)=>(
+              <li key={item.id}>
+                {item.title} || {item.year_founded} <br/>
+                <button onClick={()=>handleUpdate(item)} >edit</button> <></>
+                <button onClick={()=>handleDeleteItem(item.id)} >delete</button>
+                <hr/>
+              </li>
+            ))}
+          </ul>
+        </fieldset>
+      </div>
+      <hr/>
+      <div className='form-container' >
+        <h2>add new team</h2>
         <form onSubmit={handleSubmit} >
           <input
             type='text'
@@ -87,23 +107,11 @@ const App = () => {
             onChange={(e)=>setYear(e.target.value)}
             required
           /><br/><hr/>
-          <input type='submit' value = {editingId ? 'update' : 'add'}/>
+          <input className='submit' type='submit' value = {editingId ? 'update' : 'add'}/>
 
         </form>
       </div>
-      <div>
-        <h2>data from django Backend</h2>
-        <ul>
-          {items.map((item)=>(
-            <li key={item.id}>
-              {item.title} || {item.year_founded} <br/>
-              <button onClick={()=>handleUpdate(item)} >edit</button> <></>
-              <button onClick={()=>handleDeleteItem(item.id)} >delete</button>
-              <hr/>
-            </li>
-          ))}
-        </ul>
-      </div>
+      
     </div>
 
   )
